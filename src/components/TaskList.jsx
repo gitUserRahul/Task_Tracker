@@ -15,7 +15,12 @@ const TaskList = ({ taskList, onEdit, onDelete }) => {
     return (
       <tbody>
         {taskList.map((task) => (
-          <tr key={task.id} className="[&>td]:px-4 [&>td]:py-2">
+          <tr
+            key={task.id}
+            className={`[&>td]:px-4 [&>td]:py-2 border-b-[1px] border-[#eeee ${
+              task.status === "completed" ? "line-through" : ""
+            }`}
+          >
             <td>{task.title}</td>
             <td>{task.date}</td>
             <td>{task.status}</td>

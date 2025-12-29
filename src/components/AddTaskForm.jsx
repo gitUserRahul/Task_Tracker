@@ -12,14 +12,14 @@ const AddTaskForm = () => {
     return JSON.parse(localStorage.getItem("tasks")) || mockData;
   });
 
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(null);
 
   const [openForm, setOpenForm] = useState(false);
 
   //   handle Add or EditTask
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEditing === false) {
+    if (isEditing === null) {
       const newTask = {
         id: taskList.length + 1,
         title,
@@ -40,8 +40,8 @@ const AddTaskForm = () => {
           : task
       );
       setTaskList(editedTasks);
-      alert("Task Edited Successfully!");   
-      setIsEditing(false);
+      alert("Task Edited Successfully!");
+      setIsEditing(null);
     }
     setTitle("");
     setDueDate("");
@@ -54,7 +54,7 @@ const AddTaskForm = () => {
     setTitle(task.title);
     setDueDate(task.date);
     setStatus(task.status);
-    setIsEditing(true);
+    setIsEditing(task.id);
     setOpenForm(true);
   };
 
@@ -94,14 +94,14 @@ const AddTaskForm = () => {
               setTitle("");
               setDueDate("");
               setStatus("");
-              setIsEditing(false);
+              setIsEditing(null);
             }}
             className="absolute right-4 top-2 cursor-pointer text-xl font-bold text-red-600"
           >
             x
           </span>
           <h1 className="text-3xl pb-2">
-            {isEditing !== false ? "Edit Task" : "Add Task"}
+            {isEditing === null ? "Add Task" : "Edit Task"}
           </h1>
           <div className="w-full mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2  text-lg pb-0.5">
@@ -129,7 +129,7 @@ const AddTaskForm = () => {
             />
           </div>
           <div className="w-full mb-4">
-            <label className="text-gray-700 text-sm font-bold mb-2 text-lg pb-0.5">
+            <label className="text-gray-700 font-bold mb-2 text-lg pb-0.5">
               Status
             </label>
             <select
@@ -150,7 +150,7 @@ const AddTaskForm = () => {
             className="bg-blue-500 text-white px-4 py-2 rounded"
             type="submit"
           >
-            Add Task
+            {isEditing === null ? "Add Task" : "Save Changes"}
           </button>
         </form>
       </div>
