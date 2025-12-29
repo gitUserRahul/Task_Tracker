@@ -35,9 +35,7 @@ const AddTaskForm = () => {
       alert("Task Added Successfully!");
     } else {
       const editedTasks = taskList.map((task) =>
-        task.id === isEditing
-          ? { ...task, title, date: dueDate, status: task.status }
-          : task
+        task.id === isEditing ? { ...task, title, date: dueDate, status } : task
       );
       setTaskList(editedTasks);
       alert("Task Edited Successfully!");
